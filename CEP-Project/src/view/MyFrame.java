@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import model.MyEvent;
 
@@ -20,6 +19,7 @@ public class MyFrame extends JFrame {
 	private JPanel cp = new JPanel();
 	private JPanel pane = new JPanel();
 	private List<MyEvent> events = new LinkedList<MyEvent>();
+	private List<String> eventsRight = new LinkedList<String>();
 	
 	private DefaultListModel<String> dlm = new DefaultListModel<>();
 	
@@ -32,6 +32,8 @@ public class MyFrame extends JFrame {
 	
 	JList<String> eventList;
 	JList<String> eventListRight = new JList<String>();
+	
+	String selectedItem = "";
 	
 	public MyFrame(){
 		addEvents();
@@ -52,10 +54,32 @@ public class MyFrame extends JFrame {
 		
 		addRight.setLocation(260, 130);
 		addRight.setSize(50, 30);
+		addRight.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Ein ausgewähltes Element der rechten Liste hinzufügen
+				selectedItem = eventList.getSelectedValue();
+				eventsRight.add(selectedItem);
+				dlm = new DefaultListModel<>();
+				
+				for(int i = 0; i < eventsRight.size(); i++){
+					dlm.addElement(eventsRight.get(i));
+				}
+				eventListRight = new JList<>(dlm);
+			}
+		});
 		pane.add(addRight);
 		
 		deleteRight.setLocation(260, 170);
 		deleteRight.setSize(50, 30);
+		deleteRight.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Ein ausgewähltes Element aus der rechten Liste löschen
+			}
+		});
 		pane.add(deleteRight);
 		
 		eventListRight.setLocation(350, 10);
@@ -68,8 +92,14 @@ public class MyFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//fillDLM();
-				eventListRight = new JList<String>(dlm);
+				//Alle Elemente aus der linken Liste in die rechte Liste einfügen
+				dlm = new DefaultListModel<>();
+				
+				for(int i = 0; i < events.size(); i++){
+					dlm.addElement(events.get(i).getName());
+					eventsRight.add(events.get(i).getName());
+				}
+				eventListRight = new JList<>(dlm);
 				pane.repaint();
 			}
 		});
@@ -81,6 +111,7 @@ public class MyFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//Alle Elemente aus der rechten Liste löschen
 				eventListRight.setListData(new String[0]);
 				pane.repaint();
 			}
@@ -91,20 +122,19 @@ public class MyFrame extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Events einfügen
+	 */
 	private void addEvents(){
 		events.add(new MyEvent("Check mail", "retrieve e-Mails"));
 		events.add(new MyEvent("Save data", "Save data to hard drive"));
 		events.add(new MyEvent("Test3", "Hallo3"));
 		events.add(new MyEvent("Test4", "Hallo4"));
 		
-		fillDLM();
-		
-		eventList = new JList<String>(dlm);
-	}
-	
-	void fillDLM(){
 		for(int i = 0; i < events.size(); i++){
 			dlm.addElement(events.get(i).getName());
 		}
+		
+		eventList = new JList<String>(dlm);
 	}
 }
