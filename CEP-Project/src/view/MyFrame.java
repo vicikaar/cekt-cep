@@ -79,6 +79,23 @@ public class MyFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Ein ausgewähltes Element aus der rechten Liste löschen
+				selectedItem = eventListRight.getSelectedValue();
+				for(int i = 0; i < eventsRight.size(); i++){
+					if(eventsRight.get(i).equals(selectedItem)){
+						eventsRight.remove(i);
+						dlm = new DefaultListModel<>();
+						
+						if(eventsRight.size() < 1){
+							eventListRight.setListData(new String[0]);
+						}else {
+							for(int j = 0; j < eventsRight.size(); j++){
+								dlm.addElement(eventsRight.get(j));
+								
+							}
+						}
+						eventListRight.setModel(dlm);
+					}
+				}
 			}
 		});
 		pane.add(deleteRight);
@@ -113,6 +130,7 @@ public class MyFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//Alle Elemente aus der rechten Liste löschen
 				eventListRight.setListData(new String[0]);
+				eventsRight = new LinkedList<>();
 				pane.repaint();
 			}
 		});
