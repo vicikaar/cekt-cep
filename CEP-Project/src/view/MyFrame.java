@@ -66,6 +66,7 @@ public class MyFrame extends JFrame {
 				for(int i = 0; i < eventsRight.size(); i++){
 					dlm.addElement(eventsRight.get(i));
 				}
+				// set the new list model
 				eventListRight.setModel(dlm);
 			}
 		});
