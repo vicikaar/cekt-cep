@@ -66,7 +66,7 @@ public class MyFrame extends JFrame {
 				for(int i = 0; i < eventsRight.size(); i++){
 					dlm.addElement(eventsRight.get(i));
 				}
-				eventListRight = new JList<>(dlm);
+				eventListRight.setModel(dlm);
 			}
 		});
 		pane.add(addRight);
@@ -99,8 +99,7 @@ public class MyFrame extends JFrame {
 					dlm.addElement(events.get(i).getName());
 					eventsRight.add(events.get(i).getName());
 				}
-				eventListRight = new JList<>(dlm);
-				pane.repaint();
+				eventListRight.setModel(dlm);
 			}
 		});
 		pane.add(addAll);
