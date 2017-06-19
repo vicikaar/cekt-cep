@@ -144,10 +144,15 @@ public class MyFrame extends JFrame {
 	 * Events einfügen
 	 */
 	private void addEvents(){
-		events.add(new MyEvent("Check mail", "retrieve e-Mails"));
+		events.add(new MyEvent("Synchronise mail", "retrieve e-Mails"));
 		events.add(new MyEvent("Save data", "Save data to hard drive"));
-		events.add(new MyEvent("Test3", "Hallo3"));
-		events.add(new MyEvent("Test4", "Hallo4"));
+		events.add(new MyEvent("GPS position", "Reads the actual GPS position"));
+		events.add(new MyEvent("WLAN connected", "Checks if the WLAN is connected"));
+		events.add(new MyEvent("WLAN disconnected", "State, when WLAN not connected"));
+		events.add(new MyEvent("Play music", "Starts to play music automaticaly"));
+		events.add(new MyEvent("Set alarm clock", "Sets the alarm clock"));
+		events.add(new MyEvent("Synchronise calendar", "retrieve the appointments"));
+		//events.add(new MyEvent("", ""));
 		
 		for(int i = 0; i < events.size(); i++){
 			dlm.addElement(events.get(i).getName());
